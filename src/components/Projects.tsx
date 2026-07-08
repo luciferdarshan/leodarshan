@@ -3,236 +3,242 @@
 import { useState } from "react";
 import { GithubIcon } from "@/components/SocialIcons";
 import { motion, AnimatePresence } from "framer-motion";
-import { Monitor, ArrowRightLeft, Database, ShieldAlert, Cpu } from "lucide-react";
+import { Monitor, ArrowRightLeft, Database, ShieldAlert, Cpu, ExternalLink } from "lucide-react";
+
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { type: "spring" as const, stiffness: 70, damping: 15 },
+  },
+};
+
+const CAPABILITIES = [
+  {
+    title: "Offline Billing",
+    desc: "Checkout transactions & raw ticket printing — zero WAN dependency.",
+    color: "#00f5ff",
+  },
+  {
+    title: "Customer Registry",
+    desc: "Contact tables and purchase registers — stored locally on disk.",
+    color: "#a855f7",
+  },
+  {
+    title: "Product Inventory",
+    desc: "Stock movements, code alerts, and product list management.",
+    color: "#00ff88",
+  },
+];
+
+type NodeType = "ui" | "ipc" | "db" | null;
+
+const FLOW_NODES = [
+  { id: "ui" as const, label: "React UI", sub: "Renderer", Icon: Monitor, color: "#00f5ff" },
+  { id: "ipc" as const, label: "Electron IPC", sub: "Main Process", Icon: Cpu, color: "#a855f7" },
+  { id: "db" as const, label: "SQLite File", sub: "Local Storage", Icon: Database, color: "#00ff88" },
+];
+
+const FLOW_NOTES: Record<string, string> = {
+  ui: "REACT RENDERER :: Serves responsive bills and live inventory lookups without network calls",
+  ipc: "ELECTRON MAIN :: Handles filesystem ops, printer commands, and IPC channel routing",
+  db: "SQLITE BINARY :: Persists all ledgers and transaction tables directly to disk",
+};
 
 export default function Projects() {
-  const [hoveredNode, setHoveredNode] = useState<"ui" | "ipc" | "db" | null>(null);
-
-  const capabilities = [
-    { title: "Offline Billing", desc: "Performs checkout transactions and prints raw tickets without WAN dependancy." },
-    { title: "Customer Registry", desc: "Maintains simple contact tables and purchase registers locally on the disk." },
-    { title: "Product Inventory", desc: "Logs stock movements, tracks code alerts, and updates product lists." },
-  ];
-
-  // Animation variants
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring" as const,
-        stiffness: 70,
-        damping: 15,
-      },
-    },
-  };
-
-  const flowNotes = {
-    ui: "REACT VIEW // RENDERS RESPONSIVE BILLS AND SEARCHES INVENTORY INSTANTLY",
-    ipc: "ELECTRON MAIN // EXECUTES FILE SYSTEM COMMANDS AND ESC/POS PRINTER COMMANDS",
-    db: "SQLITE BINARY // WRITES LEDGERS AND TRANSACTION TABLES DIRECTLY TO DISK",
-  };
+  const [hoveredNode, setHoveredNode] = useState<NodeType>(null);
 
   return (
-    <section id="projects" className="py-24 bg-jp-paper relative overflow-hidden">
+    <section id="projects" className="py-28 bg-bg-deep relative overflow-hidden">
+      {/* BG */}
+      <div className="absolute inset-0 hex-pattern opacity-40 pointer-events-none" />
+      <div className="absolute right-0 bottom-0 w-[600px] h-[600px] bg-neon-pink/2 rounded-full blur-3xl pointer-events-none" />
+
       <motion.div
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="max-w-5xl mx-auto px-6"
+        viewport={{ once: true, margin: "-80px" }}
+        className="max-w-6xl mx-auto px-6 relative z-10"
       >
-        <div className="flex flex-col lg:flex-row lg:items-start gap-12 sm:gap-16">
-          
-          {/* Left Column: Title & Overview */}
-          <div className="w-full lg:w-[30%] space-y-6 shrink-0">
-            <motion.div variants={itemVariants} className="relative">
-              <div className="flex items-center gap-3">
-                <h2 className="text-2xl sm:text-3xl font-bold font-sans text-jp-ink">
-                  Projects <span className="text-brand-gradient">/</span>
-                </h2>
-              </div>
-              <div className="thin-divider mt-4" />
-            </motion.div>
-
-            {/* Monospace Annotation */}
-            <motion.div variants={itemVariants} className="text-[9px] font-mono tracking-widest text-jp-gray-dark uppercase">
-              PROJECT ARCHIVE // LOCAL-FIRST PARADIGM
-            </motion.div>
-
-            <motion.p variants={itemVariants} className="font-sans text-xs sm:text-sm text-jp-gray-dark font-normal leading-relaxed">
-              I specialize in building local-first tools that respect data privacy and keep sensitive registers completely offline.
-            </motion.p>
+        {/* Section header */}
+        <motion.div variants={itemVariants} className="mb-16">
+          <div className="section-label mb-4" style={{ color: "#ff2d9b" }}>
+            <span className="inline-block w-5 h-px bg-neon-pink mr-2" />
+            PROJECT ARCHIVE
+            <span className="inline-block w-1 h-1 bg-neon-pink rotate-45 ml-2" />
           </div>
+          <h2 className="text-4xl sm:text-5xl font-sans font-bold text-text-primary">
+            MY <span className="text-neon-pink glow-pink">PROJECTS</span>
+          </h2>
+          <div className="neon-line mt-4 w-48 opacity-60" style={{ background: "linear-gradient(90deg, transparent, #ff2d9b, transparent)" }} />
+        </motion.div>
 
-          {/* Right Column: Project Details Card */}
-          <div className="w-full lg:w-[70%] space-y-8">
-            <motion.div
-              variants={itemVariants}
-              className="p-6 sm:p-8 bg-jp-washi border border-jp-border rounded-xl relative overflow-hidden"
-            >
-              {/* Active Badge */}
-              <div className="absolute right-6 top-6 px-2.5 py-1 bg-jp-red rounded-full text-[9px] text-white font-bold select-none uppercase tracking-widest pointer-events-none">
-                Active
+        {/* Single project: LeoBook */}
+        <motion.div variants={itemVariants}>
+          <div className="anime-card p-6 sm:p-8 relative overflow-hidden">
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-pink to-transparent" />
+
+            {/* Header row */}
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8 pb-6 border-b border-border-subtle">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="font-mono text-xs text-neon-pink tracking-widest uppercase">
+                    ACTIVE DESKTOP APPLICATION
+                  </span>
+                  <span className="status-active" style={{ color: "#00ff88" }}>ACTIVE</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-sans font-bold text-text-primary">
+                  LeoBook <span className="text-neon-pink">POS</span>
+                </h3>
+                <p className="font-mono text-xs text-text-dim tracking-wide">
+                  STACK :: ELECTRON + REACT + SQLITE
+                </p>
               </div>
 
-              {/* Title & Monospace Stack annotation */}
-              <div className="mb-6 pb-4 border-b border-jp-border">
-                <span className="text-[8px] font-mono text-jp-red uppercase tracking-widest block mb-1">
-                  Active Desktop Application
-                </span>
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                  <h3 className="text-xl sm:text-2xl font-bold text-jp-ink">
-                    LeoBook POS
-                  </h3>
-                  <span className="text-[9px] font-mono text-jp-gray-dark tracking-wide">
-                    STACK // ELECTRON + REACT + SQLITE
-                  </span>
-                </div>
+              {/* Links */}
+              <div className="flex items-center gap-3 shrink-0">
+                <a
+                  href="https://github.com/luciferdarshan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-4 py-2 font-mono text-xs tracking-widest uppercase text-text-muted hover:text-neon-cyan border border-border-subtle hover:border-neon-cyan/40 rounded-xl transition-all duration-300 group"
+                  id="leobook-github-link"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>SOURCE</span>
+                  <ExternalLink className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
               </div>
+            </div>
 
-              <p className="text-jp-gray-dark text-sm font-sans font-normal leading-relaxed mb-8">
-                LeoBook is an offline-first point-of-sale and inventory desktop application built for local retail shops. It runs locally as an Electron executable, using a fast React interface backed by SQLite storage. By bypassing the cloud entirely, it keeps sensitive customer ledger data privately on your own hardware.
-              </p>
+            {/* Description */}
+            <p className="text-text-muted text-sm font-sans leading-relaxed mb-10 max-w-2xl">
+              LeoBook is an <span className="text-neon-cyan font-semibold">offline-first</span> point-of-sale and inventory desktop application 
+              for local retail shops. It runs as an Electron executable with a React interface backed by SQLite storage. 
+              By bypassing the cloud entirely, it keeps sensitive customer ledger data privately on your own hardware.
+            </p>
 
-              {/* Architecture Flow Section */}
-              <div className="mb-8 p-4 bg-jp-sumi border border-jp-border rounded-xl relative overflow-hidden">
-                <div className="flex items-center justify-between mb-4 border-b border-jp-border pb-2">
-                  <span className="text-[8px] font-mono text-jp-gray-dark uppercase tracking-widest">
-                    SYSTEM TOPOLOGY // LOCAL PIPELINE
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[8px] font-mono text-jp-red bg-jp-red/5 border border-jp-red/10 px-1.5 py-0.5 rounded">
-                    <ShieldAlert className="w-2.5 h-2.5" /> NO WAN REQUIREMENT
-                  </span>
+            <div className="grid lg:grid-cols-[1fr_1fr] gap-8">
+              {/* Architecture flow diagram */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="font-mono text-xs text-text-dim tracking-widest uppercase">SYSTEM TOPOLOGY</div>
+                  <div className="flex items-center gap-1.5 font-mono text-xs text-neon-green border border-neon-green/20 bg-neon-green/5 px-3 py-1.5 rounded-full">
+                    <ShieldAlert className="w-2.5 h-2.5" />
+                    NO WAN REQUIRED
+                  </div>
                 </div>
 
-                {/* SVG/Div Connection Flow */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 my-4">
-                  {/* React POS UI */}
-                  <motion.div
-                    onMouseEnter={() => setHoveredNode("ui")}
-                    onMouseLeave={() => setHoveredNode(null)}
-                    whileHover={{ scale: 1.02 }}
-                    className={`p-3 border rounded-lg flex flex-col items-center justify-center w-28 h-16 text-center transition-colors cursor-crosshair ${
-                      hoveredNode === "ui" ? "border-jp-red text-jp-red bg-jp-washi" : "border-jp-border bg-jp-washi text-jp-ink"
-                    }`}
-                  >
-                    <Monitor className="w-3.5 h-3.5 mb-1" />
-                    <span className="text-[9px] font-mono font-bold leading-tight">React UI</span>
-                  </motion.div>
-
-                  {/* Arrow */}
-                  <div className="flex items-center justify-center rotate-90 sm:rotate-0 text-jp-border">
-                    <ArrowRightLeft className={`w-3.5 h-3.5 transition-colors duration-200 ${hoveredNode ? "text-jp-red/40" : "text-jp-border"}`} />
+                <div className="bg-bg-void border border-border-subtle rounded-xl p-6">
+                  {/* Flow nodes */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+                    {FLOW_NODES.map((node, i) => (
+                      <div key={node.id} className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                        <motion.button
+                          id={`flow-node-${node.id}`}
+                          onMouseEnter={() => setHoveredNode(node.id)}
+                          onMouseLeave={() => setHoveredNode(null)}
+                          whileHover={{ scale: 1.04 }}
+                          className="flex flex-col items-center gap-1.5 p-4 border rounded-xl w-28 h-24 justify-center cursor-crosshair transition-all duration-200"
+                          style={hoveredNode === node.id ? {
+                            borderColor: `${node.color}60`,
+                            background: `${node.color}08`,
+                            boxShadow: `0 0 15px ${node.color}15`,
+                          } : { borderColor: "rgba(0,245,255,0.08)", background: "transparent" }}
+                        >
+                          <node.Icon
+                            className="w-4 h-4 transition-colors duration-200"
+                            style={{ color: hoveredNode === node.id ? node.color : "#3d6b8a" }}
+                          />
+                          <span className="font-mono text-xs font-bold leading-tight text-center text-text-muted">
+                            {node.label}
+                          </span>
+                          <span className="font-mono text-[9px] text-text-dim leading-tight text-center">
+                            {node.sub}
+                          </span>
+                        </motion.button>
+                        {i < FLOW_NODES.length - 1 && (
+                          <div className="rotate-90 sm:rotate-0">
+                            <ArrowRightLeft
+                              className="w-3 h-3 transition-colors duration-200"
+                              style={{ color: hoveredNode ? "rgba(0,245,255,0.3)" : "rgba(255,255,255,0.08)" }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
 
-                  {/* Electron IPC */}
-                  <motion.div
-                    onMouseEnter={() => setHoveredNode("ipc")}
-                    onMouseLeave={() => setHoveredNode(null)}
-                    whileHover={{ scale: 1.02 }}
-                    className={`p-3 border rounded-lg flex flex-col items-center justify-center w-28 h-16 text-center transition-colors cursor-crosshair ${
-                      hoveredNode === "ipc" ? "border-jp-red text-jp-red bg-jp-washi" : "border-jp-border bg-jp-washi text-jp-ink"
-                    }`}
-                  >
-                    <Cpu className="w-3.5 h-3.5 mb-1" />
-                    <span className="text-[9px] font-mono font-bold leading-tight">Electron IPC</span>
-                  </motion.div>
-
-                  {/* Arrow */}
-                  <div className="flex items-center justify-center rotate-90 sm:rotate-0 text-jp-border">
-                    <ArrowRightLeft className={`w-3.5 h-3.5 transition-colors duration-200 ${hoveredNode ? "text-jp-red/40" : "text-jp-border"}`} />
+                  {/* Node detail */}
+                  <div className="h-10 flex items-center border-t border-border-subtle pt-3">
+                    <AnimatePresence mode="wait">
+                      {hoveredNode ? (
+                        <motion.p
+                          key={hoveredNode}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.15 }}
+                          className="font-mono text-xs text-neon-cyan leading-relaxed"
+                        >
+                          &gt; {FLOW_NOTES[hoveredNode]}
+                        </motion.p>
+                      ) : (
+                        <motion.p
+                          key="default"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="font-mono text-xs text-text-dim"
+                        >
+                          HOVER NODES TO INSPECT RUNTIME STATE
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </div>
-
-                  {/* SQLite DB */}
-                  <motion.div
-                    onMouseEnter={() => setHoveredNode("db")}
-                    onMouseLeave={() => setHoveredNode(null)}
-                    whileHover={{ scale: 1.02 }}
-                    className={`p-3 border rounded-lg flex flex-col items-center justify-center w-28 h-16 text-center transition-colors cursor-crosshair ${
-                      hoveredNode === "db" ? "border-jp-red text-jp-red bg-jp-washi" : "border-jp-border bg-jp-washi text-jp-ink"
-                    }`}
-                  >
-                    <Database className="w-3.5 h-3.5 mb-1" />
-                    <span className="text-[9px] font-mono font-bold leading-tight">SQLite File</span>
-                  </motion.div>
-                </div>
-
-                {/* Technical Annotation Details */}
-                <div className="mt-2 h-8 border-t border-jp-border pt-2 flex items-center justify-start overflow-hidden select-none">
-                  <AnimatePresence mode="wait">
-                    {hoveredNode ? (
-                      <motion.p
-                        key={hoveredNode}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        transition={{ duration: 0.15 }}
-                        className="text-[9px] font-mono text-jp-red font-medium leading-normal"
-                      >
-                        {flowNotes[hoveredNode]}
-                      </motion.p>
-                    ) : (
-                      <motion.p
-                        key="default-note"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.4 }}
-                        className="text-[9px] font-mono text-jp-gray-dark"
-                      >
-                        ANALYZE PIPELINE // HOVER NODES TO INSPECT RUNTIME STATE
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
                 </div>
               </div>
 
-              {/* Capabilities List */}
-              <div className="space-y-4 mb-6">
-                <h4 className="font-mono text-[10px] uppercase tracking-widest text-jp-ink font-semibold border-b border-jp-border pb-1">
-                  Features
-                </h4>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {capabilities.map((cap) => (
-                    <div key={cap.title} className="p-3 bg-jp-sumi border border-jp-border rounded-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-jp-red inline-block mb-1.5" />
-                      <h5 className="font-mono text-[10px] text-jp-ink font-bold mb-1">
-                        {cap.title}
-                      </h5>
-                      <p className="text-[11px] text-jp-gray-dark font-light leading-relaxed">
-                        {cap.desc}
-                      </p>
+              {/* Capabilities */}
+              <div className="space-y-4">
+                <div className="font-mono text-xs text-text-dim tracking-widest uppercase">FEATURE MODULES</div>
+                <div className="space-y-3">
+                  {CAPABILITIES.map((cap) => (
+                    <div
+                      key={cap.title}
+                      className="p-4 bg-bg-void border border-border-subtle rounded-xl group hover:border-opacity-40 transition-all duration-300"
+                      style={{ "--cap-color": cap.color } as React.CSSProperties}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div
+                          className="mt-1 w-1.5 h-1.5 rounded-full shrink-0"
+                          style={{ background: cap.color, boxShadow: `0 0 6px ${cap.color}` }}
+                        />
+                        <div>
+                          <h5
+                            className="font-sans font-semibold text-base mb-1.5 group-hover:text-white transition-colors"
+                            style={{ color: cap.color }}
+                          >
+                            {cap.title}
+                          </h5>
+                          <p className="font-mono text-xs text-text-dim leading-relaxed">
+                            {cap.desc}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Source Link */}
-              <div className="flex items-center gap-4 pt-4 border-t border-jp-border">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-jp-ink hover:text-jp-red transition-colors group cursor-pointer"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" /> SOURCE CODE <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200">&rarr;</span>
-                </a>
-              </div>
-            </motion.div>
+            </div>
           </div>
-
-        </div>
+        </motion.div>
       </motion.div>
     </section>
   );

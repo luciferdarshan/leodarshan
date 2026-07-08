@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Poppins, Geist_Mono } from "next/font/google";
+import { Rajdhani, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SakuraBackground from "@/components/SakuraBackground";
 
-const poppins = Poppins({
+const rajdhani = Rajdhani({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceMono = Space_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Leo Darshan | Personal Portfolio",
+    default: "Leo Darshan | Developer Portfolio",
     template: "%s | Leo Darshan",
   },
   description:
@@ -36,29 +36,23 @@ export const metadata: Metadata = {
   authors: [{ name: "Leo Darshan" }],
   creator: "Leo Darshan",
   metadataBase: new URL("https://leodarshan.com"),
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://leodarshan.com",
-    title: "Leo Darshan | Personal Portfolio",
+    title: "Leo Darshan | Developer Portfolio",
     description:
       "Personal portfolio of Leo Darshan, building Linux desktop applications and learning modern software development. Developer of LeoBook.",
     siteName: "Leo Darshan Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Leo Darshan | Personal Portfolio",
+    title: "Leo Darshan | Developer Portfolio",
     description:
       "Personal portfolio of Leo Darshan, building Linux desktop applications and learning modern software development.",
   },
-  manifest: "/manifest.json",
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -69,28 +63,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${rajdhani.variable} ${spaceMono.variable} h-full`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (_) {}
-            `,
-          }}
-        />
-      </head>
-      <body className="min-h-full flex flex-col bg-jp-paper text-jp-ink selection:bg-jp-red/10 selection:text-jp-red">
-        <SakuraBackground />
+      <body className="min-h-full flex flex-col bg-bg-void text-text-primary">
         <Header />
-        <main className="flex-grow flex flex-col pt-20">
+        <main className="flex-grow flex flex-col pt-16">
           {children}
         </main>
         <Footer />
