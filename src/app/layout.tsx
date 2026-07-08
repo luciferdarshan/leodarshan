@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SakuraBackground from "@/components/SakuraBackground";
-import ParticleBackground from "@/components/ParticleBackground";
 
 const poppins = Poppins({
   variable: "--font-sans",
@@ -89,7 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-jp-paper text-jp-ink selection:bg-jp-red/10 selection:text-jp-red">
-        <ParticleBackground />
+        <SakuraBackground />
         <Header />
         <main className="flex-grow flex flex-col pt-20">
           {children}
