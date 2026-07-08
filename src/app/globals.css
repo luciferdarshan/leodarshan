@@ -18,27 +18,27 @@
 }
 
 :root {
-  --background: #faf9f6; /* Washi white paper background */
-  --foreground: #1c1b1a; /* Sumi ink black/charcoal text */
+  --background: #f8fafc; /* Sleek light slate background */
+  --foreground: #0f172a; /* Dark slate text */
   --card-bg: #ffffff; /* Clean white card */
-  --border: #e6e2da; /* Subtle thin light-gray border */
-  --text-muted: #706d66; /* Muted stone gray for captions/secondary text */
-  --sumi-bg: #f2eee5; /* Sumi block/secondary container background */
+  --border: #e2e8f0; /* Subtle light gray border */
+  --text-muted: #64748b; /* Muted gray text */
+  --sumi-bg: #f1f5f9; /* Slate secondary container block background */
   
-  --jp-red: #bc3f3f; /* Premium Japanese crimson/vermilion */
-  --jp-red-hover: #9a2828;
+  --jp-red: #2563eb; /* Electrical Blue for light mode */
+  --jp-red-hover: #1d4ed8;
 }
 
 .dark {
-  --background: #141312; /* Deep charcoal sumi background */
-  --foreground: #e6e3dd; /* Soft off-white ink text */
-  --card-bg: #1c1b1a; /* Dark charcoal cards */
-  --border: #2e2c29; /* Dark border */
-  --text-muted: #9c9992; /* Dark mode muted gray */
-  --sumi-bg: #0d0c0c; /* Jet black container background */
+  --background: #080c14; /* Sdeshop deep dark tech background */
+  --foreground: #f8fafc; /* Soft white/light text */
+  --card-bg: #101726; /* Dark blue/slate card bg */
+  --border: rgba(255, 255, 255, 0.08); /* Transparent subtle border */
+  --text-muted: #94a3b8; /* Muted slate gray */
+  --sumi-bg: #0f172a; /* Slate dark block background */
   
-  --jp-red: #d95353; /* Brighter vermilion for dark mode contrast */
-  --jp-red-hover: #f07373;
+  --jp-red: #3b82f6; /* Sdeshop Electrical Blue */
+  --jp-red-hover: #2563eb;
 }
 
 html {
