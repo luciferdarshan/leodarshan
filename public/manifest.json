@@ -1,0 +1,16 @@
+{
+  "name": "Leo Darshan Personal Portfolio",
+  "short_name": "Leo Darshan",
+  "description": "Portfolio of Leo Darshan - Linux Desktop Developer & AI Builder",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05070c",
+  "theme_color": "#3c6eb4",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

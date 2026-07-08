@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
+@theme {
+  --color-jp-red: var(--jp-red);
+  --color-jp-red-hover: var(--jp-red-hover);
+  
+  --color-jp-ink: var(--foreground);
+  --color-jp-paper: var(--background);
+  --color-jp-washi: var(--card-bg);
+  --color-jp-sumi: var(--sumi-bg);
+  --color-jp-border: var(--border);
+  --color-jp-gray-dark: var(--text-muted);
+  --color-jp-black: var(--foreground);
+
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-serif: "Noto Serif JP", "Playfair Display", Georgia, serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9f6; /* Washi white paper background */
+  --foreground: #1c1b1a; /* Sumi ink black/charcoal text */
+  --card-bg: #ffffff; /* Clean white card */
+  --border: #e6e2da; /* Subtle thin light-gray border */
+  --text-muted: #706d66; /* Muted stone gray for captions/secondary text */
+  --sumi-bg: #f2eee5; /* Sumi block/secondary container background */
+  
+  --jp-red: #bc3f3f; /* Premium Japanese crimson/vermilion */
+  --jp-red-hover: #9a2828;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: #141312; /* Deep charcoal sumi background */
+  --foreground: #e6e3dd; /* Soft off-white ink text */
+  --card-bg: #1c1b1a; /* Dark charcoal cards */
+  --border: #2e2c29; /* Dark border */
+  --text-muted: #9c9992; /* Dark mode muted gray */
+  --sumi-bg: #0d0c0c; /* Jet black container background */
+  
+  --jp-red: #d95353; /* Brighter vermilion for dark mode contrast */
+  --jp-red-hover: #f07373;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Elegant Solid Accent or subtle red gradient */
+.text-brand-gradient {
+  color: var(--jp-red);
+}
+
+.bg-brand-gradient {
+  background-color: var(--jp-red);
+}
+
+.red-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--jp-red);
+  border-radius: 50%;
+}
+
+.thin-divider {
+  height: 1px;
+  background-color: var(--border);
+  width: 100%;
+}
+
+/* Cards & containers */
+.minimal-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.25s ease-in-out;
+}
+
+.minimal-card:hover {
+  border-color: var(--jp-red);
+  box-shadow: 0 4px 25px rgba(188, 63, 63, 0.05);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--jp-red);
+}
+
+/* Subtly fading keyframe animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

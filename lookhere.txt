@@ -1,0 +1,252 @@
+
+# Simplify My Portfolio Website
+
+I like the current website, but it feels too exaggerated and overbuilt.
+
+I want a more authentic, minimal portfolio.
+
+The website should represent who I am today, not who I might become.
+
+Please redesign it with these goals.
+
+---
+
+## Theme
+
+Use a **Japanese-inspired design**.
+
+Colors:
+
+* White
+* Soft Red
+* Black
+* Light Gray
+
+Inspired by:
+
+* Japanese minimalism
+* Clean typography
+* Calm layouts
+* Simplicity
+
+Avoid anime styling.
+
+Instead, use a modern Japanese design aesthetic.
+
+---
+
+## Remove Fake Content
+
+Remove anything that is simulated or fake.
+
+Examples:
+
+* Fake GitHub contribution graph
+* Fake repository statistics
+* Fake live metrics
+* Fake dashboards
+* Fake screenshots
+* Fake analytics
+* Fake testimonials
+* Fake user numbers
+* Fake company logos
+* Fake experience
+* Fake achievements
+
+If I don't have it, don't show it.
+
+---
+
+## Hero Section
+
+Simple.
+
+Example:
+
+> Hi, I'm Leo Darshan.
+>
+> I enjoy building Linux desktop applications and learning modern software development.
+>
+> Currently building LeoBook, an offline billing and inventory application.
+
+No exaggerated marketing language.
+
+---
+
+## About
+
+Keep it honest.
+
+Mention:
+
+* Fedora Linux user
+* Interested in desktop software
+* Learning web technologies
+* Interested in AI-assisted development
+* Interested in stock markets and crypto
+* Interested in Japan and travel
+
+Nothing more.
+
+---
+
+## Skills
+
+Only list technologies actually used.
+
+Examples:
+
+* TypeScript
+* JavaScript
+* React
+* Next.js
+* Electron
+* SQLite
+* Tailwind CSS
+* Git
+* Fedora Linux
+
+Do not add technologies I have never used.
+
+---
+
+## Projects
+
+Only show real projects.
+
+For now:
+
+### LeoBook
+
+Explain what it actually does.
+
+Do not invent features beyond what exists.
+
+If screenshots are available, use real screenshots.
+
+No mockups.
+
+---
+
+## Blog
+
+Keep the page.
+
+Simply say:
+
+> Articles coming soon.
+
+No fake articles.
+
+---
+
+## Resume
+
+Keep it simple.
+
+No fake experience.
+
+No fake companies.
+
+Only include real education, skills, and projects.
+
+---
+
+## Contact
+
+Only include
+
+Email
+
+**[luciferdarshan@proton.me](mailto:luciferdarshan@proton.me)**
+
+GitHub
+
+No LinkedIn unless I provide it later.
+
+---
+
+## Remove
+
+Remove:
+
+* Particle background
+* Heavy animations
+* Fake terminal emulator
+* Fake GitHub statistics
+* Fake startup timeline
+* Fake milestones
+* Fake contribution graph
+* Floating effects everywhere
+
+---
+
+## Keep
+
+Keep only:
+
+* Smooth scrolling
+* Fade-in animations
+* Nice hover effects
+* Clean transitions
+
+Make it feel smooth, not flashy.
+
+---
+
+## Typography
+
+Use clean fonts.
+
+Lots of white space.
+
+Readable text.
+
+Simple layouts.
+
+Inspired by Japanese web design.
+
+---
+
+## Japanese Accent
+
+Use subtle Japanese-inspired details:
+
+* White background
+* Deep red accents
+* Thin dividers
+* Rounded cards
+* Minimal icons
+* Small cherry blossom-inspired decorative shapes (very subtle)
+* A small red circle motif inspired by the Japanese flag
+
+Do **not** overuse Japanese imagery.
+
+The design should feel elegant rather than themed.
+
+---
+
+## Performance
+
+Prioritize:
+
+* Fast loading
+* Clean code
+* Accessibility
+* SEO
+* Responsive layout
+
+---
+
+## Goal
+
+I want visitors to think:
+
+> "This is a clean, honest portfolio from someone who enjoys building software."
+
+Not:
+
+> "This looks like a template trying to impress people."
+
+Keep everything authentic, minimal, and focused on my real work.
+
