@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "Leo Darshan Portfolio",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Leo Darshan | Personal Portfolio",
     description:
       "Personal portfolio of Leo Darshan, building Linux desktop applications and learning modern software development.",
